@@ -276,11 +276,33 @@
     </div>
   </div>
 
-  <a-scene mindar-image="imageTargetSrc: ./targets.mind; maxTrack: 1; filterMinCF: 0.001; filterBeta: 0.05; missTolerance: 10; warmupTolerance: 10"
-           color-space="sRGB"
-           renderer="precision: medium; antialias: false; colorManagement: true; physicallyCorrectLights: true"
-           vr-mode-ui="enabled: false"
-           device-orientation-permission-ui="enabled: false">
+
+
+
+
+
+
+
+
+  
+  
+<a-scene mindar-image="imageTargetSrc: ./targets.mind;
+maxTrack: 1;
+filterMinCF: 0.0005;
+filterBeta: 0.01;
+missTolerance: 20;
+warmupTolerance: 15" 
+color-space="sRGB"
+renderer="precision: medium; antialias: false; colorManagement: true; physicallyCorrectLights: false"
+vr-mode-ui="enabled: false"
+device-orientation-permission-ui="enabled: false">
+
+
+
+
+  
+
+  
 
     <a-assets>
       <a-asset-item id="mayaModel" src="./maya.glb"></a-asset-item>
@@ -293,7 +315,7 @@
       <a-asset-item id="loys" src="./loys.glb"></a-asset-item>
       <a-asset-item id="base" src="./base.glb"></a-asset-item>
       <a-asset-item id="maps" src="./maps.glb"></a-asset-item>
-      <a-asset-item id="miss_regret" src="./miss_regret.glb"></a-asset-item>
+      <a-asset-item id="kos" src="./kos.glb"></a-asset-item>
       <a-asset-item id="porcelainv3" src="./porcelainv3.glb"></a-asset-item>
       <a-asset-item id="sdwtbs" src="./sdwtbs.glb"></a-asset-item>
       <a-asset-item id="transcending-myself" src="./transcending-myself.glb"></a-asset-item>
@@ -302,25 +324,23 @@
 
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-    <a-entity light="type: ambient; intensity: 2.0; color: #ffffff"></a-entity>
-    <a-entity light="type: directional; intensity: 0.1; color: #ffffff; castShadow: true" position="1 1 1"></a-entity>
-    <a-entity light="type: directional; intensity: 0.5; color: #ffffff" position="-1 1 1"></a-entity>
 
-    <a-entity mindar-image-target="targetIndex: 0"><a-gltf-model src="#mayaModel" position="0 0 0" scale="0.3 0.3 0.3" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 1"><a-gltf-model src="#regretModel" position="0 0 -0.3" scale="0.3 0.3 0.3" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 2"><a-gltf-model src="#seedlessFruitModel" position="0 0 0" scale="0.3 0.3 0.3" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 3"><a-gltf-model src="#mapisModel" position="0 0 0" scale="0.3 0.3 0.3" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 4"><a-gltf-model src="#negusAnewModel" position="0 0 0" scale="0.3 0.3 0.3" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 5"><a-gltf-model src="#ebonyModel" position="0 0 0" scale="0.3 0.3 0.3" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 6"><a-gltf-model src="#lia" position="0 0 0" scale="0.3 0.3 0.3" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 7"><a-gltf-model src="#loys" position="0 0 0" scale="0.3 0.3 0.3" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 8"><a-gltf-model src="#base" position="0 0 0" scale="0.3 0.3 0.3" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 9"><a-gltf-model src="#maps" position="0 0 0" scale="0.3 0.3 0.3" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 10"><a-gltf-model src="#miss_regret" position="0 0 0" scale="0.3 0.3 0.3" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 11"><a-gltf-model src="#porcelainv3" position="0 0 0" scale="0.3 0.3 0.3" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 12"><a-gltf-model src="#sdwtbs" position="0 0 0" scale="0.3 0.3 0.3" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 13"><a-gltf-model src="#transcending-myself" position="0 0 0" scale="0.3 0.3 0.3" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 14"><a-gltf-model src="#twins" position="0 0 0" scale="0.3 0.3 0.3" animation-mixer></a-gltf-model></a-entity>
+
+    <a-entity mindar-image-target="targetIndex: 0"><a-gltf-model src="#mayaModel" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
+    <a-entity mindar-image-target="targetIndex: 1"><a-gltf-model src="#regretModel" material="shader: flat;" position="0 0 -0.3" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
+    <a-entity mindar-image-target="targetIndex: 2"><a-gltf-model src="#seedlessFruitModel" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
+    <a-entity mindar-image-target="targetIndex: 3"><a-gltf-model src="#mapisModel" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
+    <a-entity mindar-image-target="targetIndex: 4"><a-gltf-model src="#negusAnewModel" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
+    <a-entity mindar-image-target="targetIndex: 5"><a-gltf-model src="#ebonyModel" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
+    <a-entity mindar-image-target="targetIndex: 6"><a-gltf-model src="#lia" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
+    <a-entity mindar-image-target="targetIndex: 7"><a-gltf-model src="#loys" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
+    <a-entity mindar-image-target="targetIndex: 8"><a-gltf-model src="#base" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
+    <a-entity mindar-image-target="targetIndex: 9"><a-gltf-model src="#maps" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
+    <a-entity mindar-image-target="targetIndex: 10"><a-gltf-model src="#kos" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
+    <a-entity mindar-image-target="targetIndex: 11"><a-gltf-model src="#porcelainv3" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
+    <a-entity mindar-image-target="targetIndex: 12"><a-gltf-model src="#sdwtbs" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
+    <a-entity mindar-image-target="targetIndex: 13"><a-gltf-model src="#transcending-myself" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
+    <a-entity mindar-image-target="targetIndex: 14"><a-gltf-model src="#twins" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
 
   </a-scene>
 
@@ -443,7 +463,7 @@
 
     if (sceneEl) {
         sceneEl.addEventListener('targetFound', e => {
-            if (e.detail) {
+            if (e.detail) { 
                 console.log('✅ Target found:', e.detail.targetIndex, e.detail.name);
             } else {
                 console.log('✅ Target found, but e.detail was null or undefined. Event object:', e);
@@ -451,7 +471,7 @@
         });
 
         sceneEl.addEventListener('targetLost', e => {
-            if (e.detail) {
+            if (e.detail) { 
                 console.log('❌ Target lost:', e.detail.targetIndex, e.detail.name);
             } else {
                 console.log('❌ Target lost, but e.detail was null or undefined. Event object:', e);
