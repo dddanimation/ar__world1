@@ -73,40 +73,27 @@
       box-sizing: border-box;
     }
 
-    /* Styles for each individual preview item (image + optional caption) */
     .target-preview-item {
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      width: 200px; /* Image container wider */
+      width: 200px;
     }
 
-    /* Styles for the preview images themselves */
     .preview-image {
-      width: 100%; /* Image takes full width of its parent .target-preview-item */
-      height: auto; /* Maintain aspect ratio */
-      max-height: 200px; /* Image can be taller */
-      object-fit: contain; /* Ensures the entire image is visible, scaled down */
+      width: 100%;
+      height: auto;
+      max-height: 200px;
+      object-fit: contain;
       border: 2px solid #ddd;
       border-radius: 4px;
-      margin-bottom: 5px; /* Space between image and optional caption */
-      background-color: white; /* Important if your tracking images have transparency or dark areas */
+      margin-bottom: 5px;
+      background-color: white;
     }
 
-    /* Optional: Styles for the caption below each preview image */
-    /*
-    .preview-caption {
-      font-size: 12px;
-      color: #eee;
-      margin-top: 0;
-      line-height: 1.2;
-    }
-    */
     /* --- End of Updated Welcome Message Styles --- */
 
-
-    /* Styling for the help modal (no changes here) */
     #help-modal {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -223,7 +210,7 @@
     <div id="target-image-previews">
       <div class="target-preview-item">
         <img src="./05_ebony.jpg" alt="Preview of Ebony artwork marker" class="preview-image">
-      </div>
+        </div>
     </div>
     <p class="note">
       The 3D model will appear on your screen! For detailed help later, tap the <strong>'i'</strong> button at the top right.
@@ -276,33 +263,16 @@
     </div>
   </div>
 
-
-
-
-
-
-
-
-
-  
-  
 <a-scene mindar-image="imageTargetSrc: ./targets.mind;
 maxTrack: 1;
 filterMinCF: 0.0005;
 filterBeta: 0.01;
 missTolerance: 20;
-warmupTolerance: 15" 
+warmupTolerance: 15"
 color-space="sRGB"
 renderer="precision: medium; antialias: false; colorManagement: true; physicallyCorrectLights: false"
 vr-mode-ui="enabled: false"
 device-orientation-permission-ui="enabled: false">
-
-
-
-
-  
-
-  
 
     <a-assets>
       <a-asset-item id="mayaModel" src="./maya.glb"></a-asset-item>
@@ -310,38 +280,15 @@ device-orientation-permission-ui="enabled: false">
       <a-asset-item id="seedlessFruitModel" src="./seedless-fruit.glb"></a-asset-item>
       <a-asset-item id="mapisModel" src="./mapis.glb"></a-asset-item>
       <a-asset-item id="negusAnewModel" src="./negus-anew.glb"></a-asset-item>
-      <a-asset-item id="ebonyModel" src="./ebony.glb"></a-asset-item>
-      <a-asset-item id="lia" src="./living-in-america.glb"></a-asset-item>
-      <a-asset-item id="loys" src="./loys.glb"></a-asset-item>
-      <a-asset-item id="base" src="./base.glb"></a-asset-item>
-      <a-asset-item id="maps" src="./maps.glb"></a-asset-item>
-      <a-asset-item id="kos" src="./kos.glb"></a-asset-item>
-      <a-asset-item id="porcelainv3" src="./porcelainv3.glb"></a-asset-item>
-      <a-asset-item id="sdwtbs" src="./sdwtbs.glb"></a-asset-item>
-      <a-asset-item id="transcending-myself" src="./transcending-myself.glb"></a-asset-item>
-      <a-asset-item id="twins" src="./twins.glb"></a-asset-item>
     </a-assets>
 
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-
-
 
     <a-entity mindar-image-target="targetIndex: 0"><a-gltf-model src="#mayaModel" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
     <a-entity mindar-image-target="targetIndex: 1"><a-gltf-model src="#regretModel" material="shader: flat;" position="0 0 -0.3" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
     <a-entity mindar-image-target="targetIndex: 2"><a-gltf-model src="#seedlessFruitModel" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
     <a-entity mindar-image-target="targetIndex: 3"><a-gltf-model src="#mapisModel" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
     <a-entity mindar-image-target="targetIndex: 4"><a-gltf-model src="#negusAnewModel" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 5"><a-gltf-model src="#ebonyModel" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 6"><a-gltf-model src="#lia" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 7"><a-gltf-model src="#loys" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 8"><a-gltf-model src="#base" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 9"><a-gltf-model src="#maps" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 10"><a-gltf-model src="#kos" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 11"><a-gltf-model src="#porcelainv3" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 12"><a-gltf-model src="#sdwtbs" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 13"><a-gltf-model src="#transcending-myself" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
-    <a-entity mindar-image-target="targetIndex: 14"><a-gltf-model src="#twins" material="shader: flat;" position="0 0 0" scale="0.25 0.25 0.25" animation-mixer></a-gltf-model></a-entity>
-
   </a-scene>
 
   <script>
@@ -363,12 +310,12 @@ device-orientation-permission-ui="enabled: false">
         return;
       }
       if (element.classList.contains('hidden')) {
-         console.log(`${element.id} already has hidden class.`);
-         if (element.style.display !== 'none') {
+          console.log(`${element.id} already has hidden class.`);
+          if (element.style.display !== 'none') {
             console.log(`Forcing display:none for ${element.id} as hidden class was present but display was not none.`);
             element.style.display = 'none';
-         }
-         return;
+          }
+          return;
       }
 
       element.classList.add('hidden');
@@ -389,7 +336,6 @@ device-orientation-permission-ui="enabled: false">
       }, { once: true });
       console.log(`${element.id} hidden class added, transition started.`);
     };
-
 
     const showElement = (element) => {
         element.style.display = 'flex';
