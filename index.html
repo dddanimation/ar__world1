@@ -238,15 +238,18 @@
         hideOverlay(helpModal);
     });
 
-    // --- AR Target Logging ---
-    sceneEl.addEventListener('targetFound', event => {
-        console.log('✅ Target found:', event.detail.name);
-    });
+// Your corrected, safe code
+sceneEl.addEventListener('targetFound', e => {
+    if (e.detail) { // <-- Add this check
+        console.log('✅ Target found:', e.detail.name);
+    }
+});
 
-    sceneEl.addEventListener('targetLost', event => {
-        console.log('❌ Target lost:', event.detail.name);
-    });
-  });
+sceneEl.addEventListener('targetLost', e => {
+    if (e.detail) { // <-- And add this check
+        console.log('❌ Target lost:', e.detail.name);
+    }
+});
 </script>
 </body>
 </html>
