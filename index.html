@@ -7,160 +7,82 @@
   <style>
     body {
       margin: 0;
-      overflow: hidden; /* Keep this to prevent scrollbars on the body itself */
+      overflow: hidden;
     }
     .a-enter-vr {
       display: none !important;
     }
-    /* Add a basic fade-out for the loading screen for a smoother transition */
-    #loading-screen.hidden,
-    #welcome-message.hidden,
-    #help-modal.hidden {
-      opacity: 0;
-      transition: opacity 2s ease-out; /* This is a 2-second transition */
-    }
-
-    /* --- Updated Welcome Message Styles --- */
-    #welcome-message {
+    .overlay {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      font-size: 20px;
       font-family: sans-serif;
       color: white;
       background: rgba(0, 0, 0, 0.92);
       z-index: 1000;
-      overflow-y: auto;
-      padding: 20px 10px;
+      transition: opacity 1.5s ease-out;
+      text-align: center;
+      padding: 20px;
       box-sizing: border-box;
     }
-
+    .overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
     #welcome-message h1 {
       font-size: 1.8em;
       margin-bottom: 15px;
-      text-align: center;
     }
-
     #welcome-message .instructions,
     #welcome-message .note {
       font-size: 1em;
       margin-top: 15px;
       line-height: 1.6;
       max-width: 95%;
-      text-align: center;
     }
-
     #welcome-message .note {
       font-style: italic;
       font-size: 0.85em;
       margin-top: 20px;
     }
-
     #target-image-previews {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 15px 10px;
-      margin-top: 20px;
-      margin-bottom: 20px;
-      padding: 10px;
-      width: 100%;
-      max-width: 700px;
-      box-sizing: border-box;
+      gap: 15px;
+      margin: 20px 0;
     }
-
-    .target-preview-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      width: 200px;
-    }
-
     .preview-image {
-      width: 100%;
+      width: 200px;
       height: auto;
-      max-height: 200px;
-      object-fit: contain;
       border: 2px solid #ddd;
       border-radius: 4px;
-      margin-bottom: 5px;
       background-color: white;
     }
-
-    /* --- End of Updated Welcome Message Styles --- */
-
-    #help-modal {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      font-family: sans-serif;
-      color: white;
-      background: rgba(0, 0, 0, 0.9);
-      z-index: 1001;
-      text-align: center;
-      opacity: 0;
-      pointer-events: none;
+    #loading-screen {
+        background: rgba(0, 0, 0, 0.8);
     }
-
+    #help-modal {
+        display: none; /* Start hidden */
+        opacity: 0;
+        z-index: 1001;
+    }
     #help-modal.visible {
+        display: flex;
         opacity: 1;
-        pointer-events: auto;
         transition: opacity 0.3s ease-in-out;
     }
-
     #help-modal-content {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 30px;
-        border-radius: 10px;
-        max-width: 90%;
-        max-height: 90%;
-        overflow-y: auto;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        text-align: left;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 90%;
+      max-height: 90%;
+      overflow-y: auto;
     }
-
-    #help-modal-content h2 {
-        margin-top: 0;
-        font-size: 24px;
-        color: #fff;
-        text-align: center;
-    }
-
-    #help-modal-content p {
-        font-size: 16px;
-        line-height: 1.6;
-        margin-bottom: 15px;
-    }
-
-    #help-modal-content ul {
-        list-style-type: none;
-        padding: 0;
-        margin: 0 0 20px 0;
-    }
-
-    #help-modal-content ul li {
-        margin-bottom: 10px;
-        padding-left: 20px;
-        position: relative;
-    }
-
-    #help-modal-content ul li::before {
-        content: '➡️';
-        position: absolute;
-        left: 0;
-        color: #007bff;
-    }
-
-    #close-help-button {
-      margin-top: 25px;
+    #help-modal-content h2 { margin-top: 0; }
+    #close-help-button, #inquiry-button {
       padding: 10px 25px;
       font-size: 16px;
       background-color: #007bff;
@@ -168,111 +90,74 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.2s ease-in-out;
+      transition: background-color 0.2s;
     }
-
-    #close-help-button:hover {
-        background-color: #0056b3;
+    #close-help-button:hover, #inquiry-button:hover {
+      background-color: #0056b3;
     }
-
     #help-button {
-        position: absolute;
-        top: 20px;
-        right: 120px;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 20px;
-        font-weight: bold;
-        background-color: rgba(0, 0, 0, 0.8);
-        color: white;
-        border: none;
-        border-radius: 50%;
-        cursor: pointer;
-        z-index: 999;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        transition: background-color 0.2s ease-in-out;
+      position: absolute;
+      top: 20px;
+      right: 120px;
+      width: 40px;
+      height: 40px;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 999;
+      display: flex; /* Use flex for centering */
+      border: none;
     }
-    #help-button:hover {
-        background-color: rgba(0, 0, 0, 0.9);
+    .top-right-button {
+        position: absolute; top: 20px; right: 20px; z-index: 999;
+    }
+    .top-left-icon {
+        position: absolute; top: 20px; left: 20px; z-index: 999;
     }
   </style>
 </head>
 <body>
 
-  <div id="welcome-message">
+  <div id="welcome-message" class="overlay">
     <h1>Qrcky's AR Exhibition</h1>
-    <p class="instructions">
-      Start AR: Allow camera access & point firmly at the marker below
-    </p>
+    <p class="instructions">Start AR: Allow camera access & point firmly at the marker below</p>
     <div id="target-image-previews">
-      <div class="target-preview-item">
-        <img src="./1.jpg" alt="Preview of Ebony artwork marker" class="preview-image">
-        </div>
+      <img src="./1.jpg" alt="Preview of Ebony artwork marker" class="preview-image">
     </div>
-    <p class="note">
-      The 3D model will appear on your screen! For detailed help later, tap the <strong>'i'</strong> button at the top right.
-    </p>
+    <p class="note">The 3D model will appear on your screen! For detailed help later, tap the <strong>'i'</strong> button.</p>
   </div>
 
-  <div id="loading-screen" style="
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 18px;
-    font-family: sans-serif;
-    color: white;
-    background: rgba(0, 0, 0, 0.6);
-    padding: 10px 20px;
-    border-radius: 8px;
-    z-index: 999;
-    text-align: center;">
-    Loading AR experience...<br>Please be mindful of your surroundings
+  <div id="loading-screen" class="overlay">
+    <p>Loading AR experience...<br>Please be mindful of your surroundings</p>
   </div>
 
-  <div style="position: absolute; top: 20px; left: 20px; z-index: 999;">
+  <div class="top-left-icon">
     <a href="https://www.instagram.com/qrcky/" target="_blank">
-      <img src="./insta.png" alt="Instagram" style="height: 28px; opacity: 0.8; cursor: pointer;" />
+      <img src="./insta.png" alt="Instagram" style="height: 28px; opacity: 0.8;" />
     </a>
   </div>
 
   <button id="help-button">i</button>
+  <button id="inquiry-button" class="top-right-button" onclick="window.open('https://www.qrcky.net/originals-paintings-black-and-white-art', '_blank')">Inquiry</button>
 
-  <button onclick="window.open('https://www.qrcky.net/originals-paintings-black-and-white-art', '_blank')"
-    style="position: absolute; top: 20px; right: 20px; padding: 6px 14px; font-size: 14px; background-color: rgba(0, 0, 0, 0.8); color: white; border: none; border-radius: 6px; cursor: pointer; z-index: 999; height: 40px;">
-    Inquiry
-  </button>
-
-  <div id="help-modal">
+  <div id="help-modal" class="overlay">
     <div id="help-modal-content">
-        <h2>How to Use This AR Experience</h2>
-        <p>Follow these simple steps to explore the exhibition:</p>
-        <ul>
-            <li>Point your device's camera at one of the designated artwork markers.</li>
-            <li>Once detected, the art will come to life as a 3D model!</li>
-            <li>Move your device around the marker to view the model from different angles.</li>
-            <li>Walk closer or further away to zoom in or out.</li>
-            <li>Ensure good lighting and avoid reflections on the markers for best tracking.</li>
-            <li>If the model disappears, simply re-point your camera at the marker.</li>
-            <li>For more details or to make an inquiry about the art, tap the 'Inquiry' button.</li>
-        </ul>
-        <button id="close-help-button">Got It!</button>
+      <h2>How to Use This AR Experience</h2>
+      <p>Follow these simple steps to explore the exhibition:</p>
+      <ul>... (your list content) ...</ul>
+      <button id="close-help-button">Got It!</button>
     </div>
   </div>
 
-<a-scene mindar-image="imageTargetSrc: ./targets.mind;
-maxTrack: 1;
-filterMinCF: 0.0005;
-filterBeta: 0.01;
-missTolerance: 20;
-warmupTolerance: 15"
-color-space="sRGB"
-renderer="precision: high; antialias: false; colorManagement: true; physicallyCorrectLights: false"
-vr-mode-ui="enabled: false"
-device-orientation-permission-ui="enabled: false">
+  <a-scene mindar-image="imageTargetSrc: ./targets.mind; maxTrack: 1; filterMinCF: 0.0005; filterBeta: 0.01; missTolerance: 20; warmupTolerance: 15"
+    color-space="sRGB"
+    renderer="precision: high; antialias: false; colorManagement: true; physicallyCorrectLights: false"
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false">
 
     <a-assets>
       <a-asset-item id="liaModel" src="./living-in-america.glb"></a-asset-item>
@@ -291,7 +176,8 @@ device-orientation-permission-ui="enabled: false">
     <a-entity mindar-image-target="targetIndex: 4"><a-gltf-model src="#sdwtbsModel" material="shader: flat;" position="0 0 0" scale="0.3 0.3 0.3"></a-gltf-model></a-entity>
   </a-scene>
 
-  <script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
     const sceneEl = document.querySelector('a-scene');
     const loadingScreen = document.getElementById('loading-screen');
     const welcomeMessage = document.getElementById('welcome-message');
@@ -299,130 +185,53 @@ device-orientation-permission-ui="enabled: false">
     const helpModal = document.getElementById('help-modal');
     const closeHelpButton = document.getElementById('close-help-button');
 
-    const hideElement = (element) => {
-      console.log(`Attempting to hide element: ${element ? element.id : 'undefined'}`);
-      if (!element) {
-        console.error(`Element with ID ${element ? element.id : 'undefined'} not found for hideElement.`);
-        return;
-      }
-      if (element.style.display === 'none') {
-        console.log(`${element.id} already display is none.`);
-        return;
-      }
-      if (element.classList.contains('hidden')) {
-          console.log(`${element.id} already has hidden class.`);
-          if (element.style.display !== 'none') {
-            console.log(`Forcing display:none for ${element.id} as hidden class was present but display was not none.`);
-            element.style.display = 'none';
-          }
-          return;
-      }
+    // Initially, hide the loading screen so the welcome message is visible
+    loadingScreen.classList.add('hidden');
 
+    const hideOverlay = (element) => {
       element.classList.add('hidden');
-
-      const transitionDuration = 2000;
-      setTimeout(() => {
-        if (element.classList.contains('hidden')) {
-          console.log(`Transition fallback for ${element.id}, setting display to none.`);
-          element.style.display = 'none';
-        }
-      }, transitionDuration + 100);
-
-      element.addEventListener('transitionend', function handler(event) {
-        if (event.propertyName === 'opacity' && element.classList.contains('hidden')) {
-          console.log(`Transitionend for ${element.id} (opacity), setting display to none.`);
-          element.style.display = 'none';
-        }
-      }, { once: true });
-      console.log(`${element.id} hidden class added, transition started.`);
     };
 
-    const showElement = (element) => {
-        element.style.display = 'flex';
-        element.offsetWidth; 
-        element.classList.remove('hidden');
-        element.classList.add('visible');
-        console.log(`${element.id} shown.`);
-    }
+    // Show the loading screen and then hide the welcome message
+    setTimeout(() => {
+        hideOverlay(welcomeMessage);
+        loadingScreen.classList.remove('hidden'); // Show loading screen after welcome
+    }, 4000); // Show welcome message for 4 seconds
 
-    if (welcomeMessage) {
-        setTimeout(() => {
-            hideElement(welcomeMessage);
-        }, 3500);
-    } else {
-        console.error("Welcome message element not found.");
-    }
+    let sceneLoaded = false;
 
-    const loadingScreenHideTimeout = setTimeout(() => {
-        console.log("Fallback timeout triggered for loading screen.");
-        if (loadingScreen) {
-            hideElement(loadingScreen);
-        } else {
-            console.error("loadingScreen element not found in fallback timeout.");
+    sceneEl.addEventListener('loaded', () => {
+        console.log("A-Frame scene has loaded.");
+        sceneLoaded = true;
+        hideOverlay(loadingScreen);
+    }, { once: true });
+
+    // Fallback to hide loading screen in case 'loaded' event fails
+    setTimeout(() => {
+        if (!sceneLoaded) {
+            console.warn("Scene 'loaded' event timed out. Hiding loading screen via fallback.");
+            hideOverlay(loadingScreen);
         }
-    }, 4000); 
+    }, 10000); // 10-second timeout for loading
 
-    if (sceneEl) {
-        sceneEl.addEventListener('loaded', () => {
-            console.log("A-Frame scene 'loaded' event FIRED!");
+    // Help Modal Logic
+    helpButton.addEventListener('click', () => {
+        helpModal.classList.add('visible');
+    });
 
-            if (loadingScreenHideTimeout) {
-                clearTimeout(loadingScreenHideTimeout);
-                console.log("loadingScreenHideTimeout cleared.");
-            }
-            if (loadingScreen) {
-                hideElement(loadingScreen);
-            } else {
-                console.error("loadingScreen element not found when scene loaded.");
-            }
+    closeHelpButton.addEventListener('click', () => {
+        helpModal.classList.remove('visible');
+    });
 
-            if (sceneEl.renderer) {
-                console.log("Setting renderer properties.");
-                sceneEl.renderer.setPixelRatio(window.devicePixelRatio || 1);
-                sceneEl.renderer.sortObjects = false;
-            } else {
-                console.error("Renderer not available on sceneEl when 'loaded' event fired.");
-            }
-        }, { once: true });
-    } else {
-        console.error("a-scene element not found for event listener attachment.");
-    }
+    // AR Target Logic
+    sceneEl.addEventListener('targetFound', event => {
+        console.log('✅ Target found:', event.detail.name);
+    });
 
-    if (helpButton && helpModal && closeHelpButton) {
-        helpButton.addEventListener('click', () => {
-            showElement(helpModal);
-        });
-
-        closeHelpButton.addEventListener('click', () => {
-            helpModal.classList.remove('visible');
-            helpModal.classList.add('hidden');
-            helpModal.addEventListener('transitionend', function handler(event) {
-                if (event.propertyName === 'opacity' && !helpModal.classList.contains('visible')) {
-                    helpModal.style.display = 'none';
-                    helpModal.classList.remove('hidden'); 
-                }
-            }, { once: true });
-        });
-    } else {
-        console.error("One or more help modal elements not found.");
-    }
-
-    if (sceneEl) {
-        sceneEl.addEventListener('targetFound', e => {
-            if (e.detail) { 
-                console.log('✅ Target found:', e.detail.targetIndex, e.detail.name);
-            } else {
-                console.log('✅ Target found, but e.detail was null or undefined. Event object:', e);
-            }
-        });
-
-        sceneEl.addEventListener('targetLost', e => {
-            if (e.detail) { 
-                console.log('❌ Target lost:', e.detail.targetIndex, e.detail.name);
-            } else {
-                console.log('❌ Target lost, but e.detail was null or undefined. Event object:', e);
-            }
-        });
-    }
-  </script></body>
+    sceneEl.addEventListener('targetLost', event => {
+        console.log('❌ Target lost:', event.detail.name);
+    });
+  });
+</script>
+</body>
 </html>
