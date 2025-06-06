@@ -263,16 +263,7 @@
     </div>
   </div>
 
-<a-scene mindar-image="imageTargetSrc: ./targets.mind;
-maxTrack: 1;
-filterMinCF: 0.0005;
-filterBeta: 0.01;
-missTolerance: 20;
-warmupTolerance: 15"
-color-space="sRGB"
-renderer="precision: high; antialias: false; colorManagement: true"
-vr-mode-ui="enabled: false"
-device-orientation-permission-ui="enabled: false">
+<a-scene mindar-image="imageTargetSrc: ./targets.mind; maxTrack: 1; filterMinCF: 0.0005; filterBeta: 0.01; missTolerance: 20; warmupTolerance: 15" color-space="sRGB" renderer="precision: high; antialias: false; colorManagement: true" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
 
     <a-assets>
       <a-asset-item id="liaModel" src="./living-in-america.glb"></a-asset-item>
@@ -289,7 +280,8 @@ device-orientation-permission-ui="enabled: false">
     <a-entity mindar-image-target="targetIndex: 2"><a-gltf-model src="#ebonyModel" material="shader: flat;" position="0 0 0" scale="0.4 0.4 0.4" ></a-gltf-model></a-entity>
     <a-entity mindar-image-target="targetIndex: 3"><a-gltf-model src="#mapisModel" material="shader: flat;" position="0 0 0" scale="0.4 0.4 0.4" ></a-gltf-model></a-entity>
     <a-entity mindar-image-target="targetIndex: 4"><a-gltf-model src="#sdwtbsModel" material="shader: flat;" position="0 0 0" scale="0.4 0.4 0.4" ></a-gltf-model></a-entity>
-  </a-scene>
+
+</a-scene>
 
   <script>
     const sceneEl = document.querySelector('a-scene');
