@@ -238,15 +238,17 @@
         hideOverlay(helpModal);
     });
 
-// Your corrected, safe code
+// CORRECTED CODE (safe)
 sceneEl.addEventListener('targetFound', e => {
-    if (e.detail) { // <-- Add this check
+    // First, check if e.detail exists
+    if (e.detail) {
         console.log('✅ Target found:', e.detail.name);
     }
 });
 
 sceneEl.addEventListener('targetLost', e => {
-    if (e.detail) { // <-- And add this check
+    // First, check if e.detail exists
+    if (e.detail) {
         console.log('❌ Target lost:', e.detail.name);
     }
 });
