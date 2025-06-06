@@ -185,45 +185,60 @@
     const helpModal = document.getElementById('help-modal');
     const closeHelpButton = document.getElementById('close-help-button');
 
-    // Initially, hide the loading screen so the welcome message is visible
-    loadingScreen.classList.add('hidden');
-
+    // --- NEW, ROBUST HIDE FUNCTION ---
     const hideOverlay = (element) => {
+      // 1. Add the .hidden class to start the fade-out transition
       element.classList.add('hidden');
+
+      // 2. Listen for the transition to finish
+      element.addEventListener('transitionend', () => {
+        // 3. After fading out, completely hide the element
+        element.style.display = 'none';
+      }, { once: true }); // {once: true} ensures the event fires only one time
     };
 
-    // Show the loading screen and then hide the welcome message
+    // Initially, hide the loading screen so the welcome message is visible
+    // We set display:none directly because there's no transition needed here.
+    loadingScreen.style.display = 'none';
+    
+    // After 4 seconds, hide the welcome message and show the loading screen
     setTimeout(() => {
         hideOverlay(welcomeMessage);
-        loadingScreen.classList.remove('hidden'); // Show loading screen after welcome
-    }, 4000); // Show welcome message for 4 seconds
+        loadingScreen.style.display = 'flex'; // Show loading screen
+    }, 4000);
 
     let sceneLoaded = false;
 
+    // When the A-Frame scene's assets are loaded, hide the loading screen
     sceneEl.addEventListener('loaded', () => {
         console.log("A-Frame scene has loaded.");
         sceneLoaded = true;
         hideOverlay(loadingScreen);
     }, { once: true });
 
-    // Fallback to hide loading screen in case 'loaded' event fails
+    // Fallback: If assets take too long, hide loading screen anyway
     setTimeout(() => {
         if (!sceneLoaded) {
             console.warn("Scene 'loaded' event timed out. Hiding loading screen via fallback.");
             hideOverlay(loadingScreen);
         }
-    }, 10000); // 10-second timeout for loading
+    }, 12000); // 12-second timeout for loading
 
-    // Help Modal Logic
+    // --- Help Modal Logic (no changes needed here) ---
     helpButton.addEventListener('click', () => {
+        // To show the modal, we remove inline style and the class
+        helpModal.style.display = '';
+        helpModal.classList.remove('hidden');
         helpModal.classList.add('visible');
     });
 
     closeHelpButton.addEventListener('click', () => {
         helpModal.classList.remove('visible');
+        // We can use our robust hideOverlay function here too!
+        hideOverlay(helpModal);
     });
 
-    // AR Target Logic
+    // --- AR Target Logging ---
     sceneEl.addEventListener('targetFound', event => {
         console.log('✅ Target found:', event.detail.name);
     });
